@@ -7,6 +7,8 @@ import { UserDataProvider } from "@/context/UserDataContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import FirePlanner from "./pages/FirePlanner";
+import TaxPlanner from "./pages/TaxPlanner";
+import GoalPlanner from "./pages/GoalPlanner";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -23,6 +25,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/fire" element={<FirePlanner />} />
+            <Route path="/tax" element={<TaxPlanner />} />
+            <Route path="/goals" element={<GoalPlanner />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

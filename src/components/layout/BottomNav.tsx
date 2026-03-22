@@ -1,10 +1,12 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, Flame, Settings } from "lucide-react";
+import { LayoutDashboard, Flame, Receipt, Target, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/fire", label: "FIRE Plan", icon: Flame },
+  { to: "/fire", label: "FIRE", icon: Flame },
+  { to: "/tax", label: "Tax", icon: Receipt },
+  { to: "/goals", label: "Goals", icon: Target },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
 
@@ -21,7 +23,7 @@ export default function BottomNav() {
               key={to}
               to={to}
               className={cn(
-                "flex flex-col items-center gap-0.5 px-4 py-1.5 transition-colors active:scale-95",
+                "flex flex-col items-center gap-0.5 px-3 py-1.5 transition-colors active:scale-95",
                 active ? "text-primary" : "text-muted-foreground"
               )}
             >
@@ -31,7 +33,6 @@ export default function BottomNav() {
           );
         })}
       </div>
-      {/* Safe area spacer */}
       <div className="h-[env(safe-area-inset-bottom)]" />
     </nav>
   );

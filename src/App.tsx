@@ -7,7 +7,10 @@ import { UserDataProvider } from "@/context/UserDataContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import FirePlanner from "./pages/FirePlanner";
+import TaxPlanner from "./pages/TaxPlanner";
+import GoalPlanner from "./pages/GoalPlanner";
 import Settings from "./pages/Settings";
+import NotFound from "./pages/NotFound";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

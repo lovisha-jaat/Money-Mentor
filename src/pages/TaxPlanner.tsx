@@ -18,21 +18,31 @@ import {
 
 export default function TaxPlanner() {
   const { userData, isOnboarded } = useUserData();
-  if (!isOnboarded || !userData) return <Navigate to="/" replace />;
-
   const [showResults, setShowResults] = useState(false);
   const [input, setInput] = useState<TaxInput>({
-    basicSalary: Math.round(userData.monthlyIncome * 12 * 0.5),
-    hra: Math.round(userData.monthlyIncome * 12 * 0.2),
-    specialAllowance: Math.round(userData.monthlyIncome * 12 * 0.25),
-    lta: Math.round(userData.monthlyIncome * 12 * 0.05),
-    rentPaid: Math.round(userData.monthlyExpenses * 12 * 0.3),
+    basicSalary: 0,
+    hra: 0,
+    specialAllowance: 0,
+    lta: 0,
+    rentPaid: 0,
     isMetro: true,
     section80C: 0,
     section80D: 0,
     nps80CCD: 0,
     homeLoanInterest: 0,
   });
+
+  if (!isOnboarded || !userData) return <Navigate to="/" replace />;
+
+  // Initialize defaults from userData on first render if input is all zeros
+  if (input.basicSalary === 0 && userData) {
+    const annualIncome = userData.monthlyIncome * 12;
+    input.basicSalary = Math.round(annualIncome * 0.5);
+    input.hra = Math.round(annualIncome * 0.2);
+    input.specialAllowance = Math.round(annualIncome * 0.25);
+    input.lta = Math.round(annualIncome * 0.05);
+    input.rentPaid = Math.round(userData.monthlyExpenses * 12 * 0.3);
+  }
 
   const update = (field: keyof TaxInput, value: string | boolean) => {
     setInput((p) => ({ ...p, [field]: typeof value === "boolean" ? value : parseFloat(value) || 0 }));

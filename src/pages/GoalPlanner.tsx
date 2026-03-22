@@ -47,13 +47,13 @@ function formatCurrency(val: number): string {
 
 export default function GoalPlanner() {
   const { userData, isOnboarded } = useUserData();
-  if (!isOnboarded || !userData) return <Navigate to="/" replace />;
-
   const [goals, setGoals] = useState<Goal[]>([]);
   const [showAdd, setShowAdd] = useState(false);
   const [selectedPreset, setSelectedPreset] = useState("");
   const [newGoal, setNewGoal] = useState({ name: "", targetAmount: "", timelineYears: "", currentSaved: "0", icon: "🎯" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  if (!isOnboarded || !userData) return <Navigate to="/" replace />;
 
   const handlePresetSelect = (presetName: string) => {
     setSelectedPreset(presetName);

@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react";
 const PRIMARY_ITEMS = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/fire", label: "FIRE", icon: Flame },
-  { to: "/tax", label: "Tax", icon: Receipt },
+  { to: "/chat", label: "AI Chat", icon: MessageCircle },
   { to: "/goals", label: "Goals", icon: Target },
 ];
 

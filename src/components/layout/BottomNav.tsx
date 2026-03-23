@@ -11,6 +11,7 @@ const PRIMARY_ITEMS = [
 ];
 
 const MORE_ITEMS = [
+  { to: "/tax", label: "Tax", icon: Receipt },
   { to: "/simulator", label: "Simulator", icon: SlidersHorizontal },
   { to: "/personality", label: "Personality", icon: Brain },
   { to: "/emergency", label: "Emergency", icon: ShieldCheck },

@@ -4,6 +4,7 @@ import { calculateHealthScore, generateInsights } from "@/lib/financial-calculat
 import HealthScoreRing from "@/components/dashboard/HealthScoreRing";
 import CategoryBreakdown from "@/components/dashboard/CategoryBreakdown";
 import InsightsSection from "@/components/dashboard/InsightsSection";
+import SmartAlerts from "@/components/dashboard/SmartAlerts";
 import BottomNav from "@/components/layout/BottomNav";
 import { Card, CardContent } from "@/components/ui/card";
 

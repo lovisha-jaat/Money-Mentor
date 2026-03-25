@@ -1,9 +1,10 @@
 import { useUserData } from "@/context/UserDataContext";
+import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import BottomNav from "@/components/layout/BottomNav";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, User } from "lucide-react";
+import { RotateCcw, User, LogOut } from "lucide-react";
 
 export default function Settings() {
   const { userData, resetData } = useUserData();

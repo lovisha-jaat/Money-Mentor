@@ -59,6 +59,17 @@ export default function Settings() {
           <RotateCcw className="w-4 h-4 mr-2" />
           Reset & Start Over
         </Button>
+
+        <Button variant="outline" className="w-full active:scale-[0.98] transition-transform" onClick={handleSignOut}>
+          <LogOut className="w-4 h-4 mr-2" />
+          Sign Out
+        </Button>
+
+        {user && (
+          <p className="text-xs text-muted-foreground text-center">
+            Signed in as {user.email}
+          </p>
+        )}
       </div>
 
       <BottomNav />

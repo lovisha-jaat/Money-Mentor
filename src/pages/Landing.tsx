@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   ArrowRight,
+  BookOpen,
   Shield,
   TrendingUp,
   Brain,
@@ -129,6 +130,14 @@ export default function Landing() {
               See How It Works
             </Button>
           </div>
+          <Button
+            variant="ghost"
+            className="text-sm text-muted-foreground hover:text-primary"
+            onClick={() => navigate("/guide")}
+          >
+            <BookOpen className="w-4 h-4 mr-1.5" />
+            Beginner's Guide
+          </Button>
 
           {/* Trust badges */}
           <div className="flex items-center justify-center gap-6 pt-4 text-xs text-muted-foreground">

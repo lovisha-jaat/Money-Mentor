@@ -373,12 +373,21 @@ export default function AiChat() {
       {/* Input */}
       <div className="border-t border-border/40 bg-card px-4 py-3 shrink-0 mb-14">
         <div className="flex gap-2 items-end max-w-lg mx-auto">
+          <Button
+            size="icon"
+            variant={isListening ? "default" : "outline"}
+            onClick={toggleListening}
+            disabled={isLoading}
+            className={cn("rounded-xl h-10 w-10 shrink-0", isListening && "animate-pulse bg-destructive hover:bg-destructive/90")}
+          >
+            {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+          </Button>
           <textarea
             ref={inputRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about your finances..."
+            placeholder={isListening ? "Listening..." : "Ask about your finances..."}
             rows={1}
             className="flex-1 resize-none rounded-xl border border-border bg-background px-3.5 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring max-h-24 overflow-y-auto"
           />

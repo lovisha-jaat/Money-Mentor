@@ -13,8 +13,8 @@ type Msg = { role: "user" | "assistant"; content: string };
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/financial-chat`;
 
 const QUICK_PROMPTS = [
-  { label: "💰 Tax savings tips", text: "What tax-saving options do I have based on my income? Give me specific amounts for 80C, 80D, and NPS." },
-  { label: "📈 Start investing", text: "I want to start investing. Based on my surplus, suggest a specific SIP plan with fund types and amounts." },
+  { label: "💰 Tax savings tips", text: "What tax-saving options do I have based on my income? Give me specific amounts." },
+  { label: "📈 Start investing", text: "I want to start investing. Based on my surplus, suggest a specific investment plan with fund types and amounts." },
   { label: "🛡️ Emergency fund", text: "How much should my emergency fund be? What's my current gap and how fast can I fill it?" },
   { label: "🔥 FIRE plan", text: "Can I retire early? What monthly investment do I need to reach financial independence?" },
   { label: "💸 Cut expenses", text: "My expenses seem high. Give me a practical budget breakdown and savings targets." },

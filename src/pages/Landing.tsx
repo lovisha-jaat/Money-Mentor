@@ -49,7 +49,7 @@ const FEATURES = [
   {
     icon: Target,
     title: "Goal Planner",
-    desc: "Plan for a car, house, or vacation — we calculate the monthly SIP needed.",
+    desc: "Plan for a car, house, or vacation — we calculate the monthly investment needed.",
     color: "text-destructive",
     bg: "bg-destructive/10",
   },

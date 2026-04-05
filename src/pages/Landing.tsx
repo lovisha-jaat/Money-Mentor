@@ -15,16 +15,6 @@ import {
   ChevronRight,
   IndianRupee,
   Zap,
-  Mic,
-  Globe,
-  Rocket,
-  Code,
-  Database,
-  Palette,
-  Layers,
-  Lightbulb,
-  Users,
-  Smartphone,
 } from "lucide-react";
 
 const FEATURES = [

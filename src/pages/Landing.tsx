@@ -219,7 +219,7 @@ export default function Landing() {
             Ready to take control of your finances?
           </h2>
           <p className="text-muted-foreground max-w-sm mx-auto">
-            Join thousands of Indians who are building a smarter financial future with AI-powered guidance.
+            Join thousands of users worldwide who are building a smarter financial future with AI-powered guidance.
           </p>
           <Button
             size="lg"

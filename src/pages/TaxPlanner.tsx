@@ -58,15 +58,30 @@ function getFieldsForCountry(country: string): FieldDef[] {
 
 export default function TaxPlanner() {
   const { userData, isOnboarded } = useUserData();
+  const [showResults, setShowResults] = useState(false);
+  const [input, setInput] = useState<TaxInput>(() => {
+    const c = userData?.country || "US";
+    const def = createDefaultTaxInput(c);
+    if (userData) {
+      const annualIncome = userData.monthlyIncome * 12;
+      if (c === "IN") {
+        def.basicSalary = Math.round(annualIncome * 0.5);
+        def.hra = Math.round(annualIncome * 0.2);
+        def.specialAllowance = Math.round(annualIncome * 0.25);
+        def.lta = Math.round(annualIncome * 0.05);
+        def.rentPaid = Math.round(userData.monthlyExpenses * 12 * 0.3);
+      } else {
+        def.grossIncome = annualIncome;
+      }
+    }
+    return def;
+  });
 
   if (!isOnboarded || !userData) return <Navigate to="/" replace />;
 
   const country = userData.country;
   const cc = COUNTRIES[country];
   const fmt = (v: number) => formatCurrency(v, country);
-
-  const [showResults, setShowResults] = useState(false);
-  const [input, setInput] = useState<TaxInput>(() => {
     const def = createDefaultTaxInput(country);
     const annualIncome = userData.monthlyIncome * 12;
     if (country === "IN") {

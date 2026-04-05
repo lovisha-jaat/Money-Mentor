@@ -213,7 +213,7 @@ export default function Landing() {
       <section className="px-4 py-14 bg-card/50 border-t border-border/40">
         <div className="max-w-lg mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-3 py-1.5 rounded-full text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5" /> Built for India
+            <Sparkles className="w-3.5 h-3.5" /> Built for Everyone
           </div>
           <h2 className="text-2xl font-bold tracking-tight">
             Ready to take control of your finances?

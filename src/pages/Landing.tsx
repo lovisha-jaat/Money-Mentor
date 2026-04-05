@@ -28,7 +28,7 @@ const FEATURES = [
   {
     icon: Brain,
     title: "AI Chat Mentor",
-    desc: "Ask anything about SIP, PPF, NPS, taxes — get personalized answers using your data.",
+    desc: "Ask anything about investing, taxes, or budgeting — get personalized answers using your data.",
     color: "text-chart-2",
     bg: "bg-chart-2/10",
   },

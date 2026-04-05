@@ -107,7 +107,7 @@ export default function Landing() {
           </h1>
 
           <p className="text-muted-foreground text-lg leading-relaxed max-w-md mx-auto">
-            AI-powered financial planning built for India. Get your money health score, save taxes, plan retirement & build wealth — all in one place.
+            AI-powered financial planning for everyone. Get your money health score, save taxes, plan retirement & build wealth — all in one place.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">

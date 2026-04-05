@@ -74,7 +74,7 @@ export default function AiChat() {
     }
 
     const recognition = new SpeechRecognition();
-    recognition.lang = "en-IN";
+    recognition.lang = (window as any).__speechLang || "en-US";
     recognition.interimResults = true;
     recognition.continuous = false;
     recognitionRef.current = recognition;

@@ -234,7 +234,7 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className="px-4 py-6 text-center text-xs text-muted-foreground border-t border-border/40">
-        <p>© 2026 FinMentor AI · Your AI-powered financial companion for India</p>
+        <p>© 2026 FinMentor AI · Your AI-powered financial companion</p>
       </footer>
     </div>
   );

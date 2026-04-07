@@ -113,6 +113,17 @@ export default function Profile() {
           </CardContent>
         </Card>
 
+        {/* Dark Mode Toggle */}
+        <Card className="shadow-sm">
+          <CardContent className="p-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {theme === "dark" ? <Moon className="w-4 h-4 text-chart-2" /> : <Sun className="w-4 h-4 text-accent" />}
+              <span className="text-sm font-medium">Dark Mode</span>
+            </div>
+            <Switch checked={theme === "dark"} onCheckedChange={toggleTheme} />
+          </CardContent>
+        </Card>
+
         {/* Export */}
         <Button variant="outline" className="w-full" onClick={exportCSV}>
           <Download className="w-4 h-4 mr-2" /> Export Transactions (CSV)

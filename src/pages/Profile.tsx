@@ -15,6 +15,7 @@ import { toast } from "sonner";
 export default function Profile() {
   const { user, signOut } = useAuth();
   const { transactions } = useTransactions();
+  const { theme, toggleTheme } = useTheme();
   const { badges } = useBadges();
   const { goals } = useSavingsGoals();
   const navigate = useNavigate();

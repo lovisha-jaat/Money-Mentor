@@ -8,7 +8,7 @@ import BottomNav from "@/components/layout/BottomNav";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { LogOut, User, Award, TrendingUp, TrendingDown, Download } from "lucide-react";
+import { LogOut, User, Award, TrendingUp, TrendingDown, Download, Moon, Sun } from "lucide-react";
 import { BADGE_DEFINITIONS } from "@/types/finance";
 import { toast } from "sonner";
 

@@ -13,6 +13,7 @@ import Transactions from "./pages/Transactions";
 import Budgets from "./pages/Budgets";
 import Goals from "./pages/Goals";
 import Profile from "./pages/Profile";
+import SpendingDetective from "./pages/SpendingDetective";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();

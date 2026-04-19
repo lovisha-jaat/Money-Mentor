@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Brain, RefreshCw, CalendarDays, Lightbulb, AlertTriangle, ShoppingBag } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import ReactMarkdown from "react-markdown";
 
 const ACTIONS = [
@@ -113,9 +114,19 @@ export default function MoneyCoach() {
                   <ReactMarkdown>{result}</ReactMarkdown>
                 </div>
               ) : (
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <RefreshCw className="w-3 h-3 animate-spin" />
-                  Thinking...
+                <div className="space-y-2.5" aria-label="Loading AI response">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
+                    <RefreshCw className="w-3 h-3 animate-spin" />
+                    Thinking...
+                  </div>
+                  <Skeleton className="h-3 w-[92%]" />
+                  <Skeleton className="h-3 w-[78%]" />
+                  <Skeleton className="h-3 w-[85%]" />
+                  <Skeleton className="h-3 w-[60%]" />
+                  <div className="pt-1.5 space-y-2">
+                    <Skeleton className="h-3 w-[70%]" />
+                    <Skeleton className="h-3 w-[88%]" />
+                  </div>
                 </div>
               )}
             </CardContent>

@@ -97,8 +97,6 @@ Make it feel like a report card but fun and encouraging. Use emojis and markdown
 
     let userMessage = `Here's my financial data:\n\nTransactions:\n${txSummary}\n\nSavings Goals:\n${goalsSummary}\n\nBudgets:\n${budgetsSummary}`;
 
-    // For ask-before-spending, include the purchase info
-    const { purchaseItem, purchaseAmount } = await req.json().catch(() => ({}));
     if (action === "ask-before-spending" && purchaseItem) {
       userMessage += `\n\nI want to buy: ${purchaseItem} for $${purchaseAmount}`;
     }

@@ -9,7 +9,8 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { transactions, goals, budgets, action } = await req.json();
+    const body = await req.json();
+    const { transactions, goals, budgets, action, purchaseItem, purchaseAmount } = body;
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
@@ -96,8 +97,6 @@ Make it feel like a report card but fun and encouraging. Use emojis and markdown
 
     let userMessage = `Here's my financial data:\n\nTransactions:\n${txSummary}\n\nSavings Goals:\n${goalsSummary}\n\nBudgets:\n${budgetsSummary}`;
 
-    // For ask-before-spending, include the purchase info
-    const { purchaseItem, purchaseAmount } = await req.json().catch(() => ({}));
     if (action === "ask-before-spending" && purchaseItem) {
       userMessage += `\n\nI want to buy: ${purchaseItem} for $${purchaseAmount}`;
     }

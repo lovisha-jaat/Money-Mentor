@@ -8,19 +8,16 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
-import Transactions from "./pages/Transactions";
-import Budgets from "./pages/Budgets";
+import FIREPlanner from "./pages/FIREPlanner";
+import WhatIf from "./pages/WhatIf";
+import TaxPlanner from "./pages/TaxPlanner";
 import Goals from "./pages/Goals";
+import EmergencyFund from "./pages/EmergencyFund";
+import MoneyPersonality from "./pages/MoneyPersonality";
+import Chat from "./pages/Chat";
 import Profile from "./pages/Profile";
-import SpendingDetective from "./pages/SpendingDetective";
-import SavingPlan from "./pages/SavingPlan";
-import Subscriptions from "./pages/Subscriptions";
-import Streaks from "./pages/Streaks";
-import MoneyCoach from "./pages/MoneyCoach";
-import LifestyleSimulator from "./pages/LifestyleSimulator";
-import AchievementReport from "./pages/AchievementReport";
-import PeerComparison from "./pages/PeerComparison";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,18 +33,15 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/transactions" element={<ProtectedRoute><Transactions /></ProtectedRoute>} />
-              <Route path="/budgets" element={<ProtectedRoute><Budgets /></ProtectedRoute>} />
+              <Route path="/fire" element={<ProtectedRoute><FIREPlanner /></ProtectedRoute>} />
+              <Route path="/whatif" element={<ProtectedRoute><WhatIf /></ProtectedRoute>} />
+              <Route path="/tax" element={<ProtectedRoute><TaxPlanner /></ProtectedRoute>} />
               <Route path="/goals" element={<ProtectedRoute><Goals /></ProtectedRoute>} />
-              <Route path="/detective" element={<ProtectedRoute><SpendingDetective /></ProtectedRoute>} />
-              <Route path="/saving-plan" element={<ProtectedRoute><SavingPlan /></ProtectedRoute>} />
-              <Route path="/subscriptions" element={<ProtectedRoute><Subscriptions /></ProtectedRoute>} />
-              <Route path="/streaks" element={<ProtectedRoute><Streaks /></ProtectedRoute>} />
-              <Route path="/money-coach" element={<ProtectedRoute><MoneyCoach /></ProtectedRoute>} />
-              <Route path="/lifestyle" element={<ProtectedRoute><LifestyleSimulator /></ProtectedRoute>} />
-              <Route path="/achievements" element={<ProtectedRoute><AchievementReport /></ProtectedRoute>} />
-              <Route path="/peers" element={<ProtectedRoute><PeerComparison /></ProtectedRoute>} />
+              <Route path="/emergency" element={<ProtectedRoute><EmergencyFund /></ProtectedRoute>} />
+              <Route path="/personality" element={<ProtectedRoute><MoneyPersonality /></ProtectedRoute>} />
+              <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -1,49 +1,45 @@
-import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import { LayoutDashboard, PlusCircle, Brain, User, MoreHorizontal, Flame, CreditCard, CalendarDays, Layers, Trophy, Users, Search, PiggyBank, BarChart3 } from "lucide-react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { LayoutDashboard, MessageCircle, Target, Calculator, FlameKindling, MoreHorizontal, Receipt, Brain, Shield, User, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-const MAIN_NAV = [
+const MAIN = [
   { to: "/dashboard", label: "Home", icon: LayoutDashboard },
-  { to: "/transactions", label: "Add", icon: PlusCircle },
-  { to: "/money-coach", label: "Coach", icon: Brain },
-  { to: "/streaks", label: "Streaks", icon: Flame },
+  { to: "/fire", label: "FIRE", icon: FlameKindling },
+  { to: "/chat", label: "Mentor", icon: MessageCircle },
+  { to: "/goals", label: "Goals", icon: Target },
 ];
 
-const MORE_NAV = [
-  { to: "/detective", label: "Spending Detective", icon: Search },
-  { to: "/saving-plan", label: "Saving Plan", icon: CalendarDays },
-  { to: "/subscriptions", label: "Subscriptions", icon: CreditCard },
-  { to: "/budgets", label: "Budgets", icon: BarChart3 },
-  { to: "/goals", label: "Savings Goals", icon: PiggyBank },
-  { to: "/lifestyle", label: "Lifestyle Simulator", icon: Layers },
-  { to: "/achievements", label: "Achievement Report", icon: Trophy },
-  { to: "/peers", label: "Peer Comparison", icon: Users },
+const MORE = [
+  { to: "/tax", label: "Tax Planner", icon: Receipt },
+  { to: "/whatif", label: "What-If Simulator", icon: TrendingUp },
+  { to: "/personality", label: "Money Personality", icon: Brain },
+  { to: "/emergency", label: "Emergency Fund", icon: Shield },
   { to: "/profile", label: "Profile & Settings", icon: User },
 ];
 
 export default function BottomNav() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const moreActive = MORE_NAV.some(n => location.pathname === n.to);
+  const moreActive = MORE.some(n => location.pathname === n.to);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-card border-t border-border/60 z-50">
-      <div className="flex items-center justify-around h-14 max-w-lg mx-auto">
-        {MAIN_NAV.map(({ to, label, icon: Icon }) => {
+    <nav className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur border-t border-border/60 z-50">
+      <div className="flex items-center justify-around h-16 max-w-2xl mx-auto px-2">
+        {MAIN.map(({ to, label, icon: Icon }) => {
           const active = location.pathname === to;
           return (
             <NavLink
               key={to}
               to={to}
               className={cn(
-                "flex flex-col items-center gap-0.5 px-3 py-1.5 transition-colors active:scale-95",
-                active ? "text-primary" : "text-muted-foreground"
+                "flex flex-col items-center gap-0.5 px-3 py-1.5 transition-all active:scale-95 rounded-lg",
+                active ? "text-primary" : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <Icon className={cn("w-5 h-5", active && "stroke-[2.5]")} />
-              <span className="text-[10px] font-medium">{label}</span>
+              <Icon className={cn("w-5 h-5", active && "stroke-[2.4]")} />
+              <span className="text-[10px] font-semibold tracking-wide">{label}</span>
             </NavLink>
           );
         })}
@@ -53,19 +49,19 @@ export default function BottomNav() {
             <button
               className={cn(
                 "flex flex-col items-center gap-0.5 px-3 py-1.5 transition-colors active:scale-95",
-                moreActive ? "text-primary" : "text-muted-foreground"
+                moreActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <MoreHorizontal className={cn("w-5 h-5", moreActive && "stroke-[2.5]")} />
-              <span className="text-[10px] font-medium">More</span>
+              <MoreHorizontal className={cn("w-5 h-5", moreActive && "stroke-[2.4]")} />
+              <span className="text-[10px] font-semibold tracking-wide">More</span>
             </button>
           </SheetTrigger>
           <SheetContent side="bottom" className="rounded-t-2xl pb-8">
             <SheetHeader>
-              <SheetTitle className="text-left">More Features</SheetTitle>
+              <SheetTitle className="text-left">More tools</SheetTitle>
             </SheetHeader>
             <div className="grid grid-cols-3 gap-2 mt-4">
-              {MORE_NAV.map(({ to, label, icon: Icon }) => {
+              {MORE.map(({ to, label, icon: Icon }) => {
                 const active = location.pathname === to;
                 return (
                   <NavLink
@@ -78,7 +74,7 @@ export default function BottomNav() {
                     )}
                   >
                     <Icon className="w-5 h-5" />
-                    <span className="text-[10px] font-medium text-center leading-tight">{label}</span>
+                    <span className="text-[10px] font-semibold text-center leading-tight">{label}</span>
                   </NavLink>
                 );
               })}

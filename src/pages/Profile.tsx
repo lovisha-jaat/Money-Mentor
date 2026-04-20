@@ -1,140 +1,90 @@
+import { useFinancialProfile } from "@/hooks/useFinancialProfile";
 import { useAuth } from "@/context/AuthContext";
-import { useTransactions } from "@/hooks/useTransactions";
-import { useBadges } from "@/hooks/useBadges";
-import { useSavingsGoals } from "@/hooks/useSavingsGoals";
 import { useTheme } from "@/context/ThemeContext";
-import { useNavigate } from "react-router-dom";
-import BottomNav from "@/components/layout/BottomNav";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { LogOut, User, Award, TrendingUp, TrendingDown, Download, Moon, Sun } from "lucide-react";
-import { BADGE_DEFINITIONS } from "@/types/finance";
+import BottomNav from "@/components/layout/BottomNav";
+import { Loader2, User, LogOut, Moon, Edit, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { formatINR } from "@/lib/inr";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export default function Profile() {
   const { user, signOut } = useAuth();
-  const { transactions } = useTransactions();
+  const { profile, loading } = useFinancialProfile();
   const { theme, toggleTheme } = useTheme();
-  const { badges } = useBadges();
-  const { goals } = useSavingsGoals();
   const navigate = useNavigate();
 
-  const totalIncome = transactions.filter(t => t.type === "income").reduce((s, t) => s + Number(t.amount), 0);
-  const totalExpenses = transactions.filter(t => t.type === "expense").reduce((s, t) => s + Number(t.amount), 0);
-  const displayName = user?.user_metadata?.display_name || user?.email?.split("@")[0] || "Student";
-
-  const exportCSV = () => {
-    if (transactions.length === 0) { toast.error("No data to export"); return; }
-    const headers = "Date,Type,Category,Amount,Notes\n";
-    const rows = transactions.map(t =>
-      `${t.transaction_date},${t.type},${t.category},${t.amount},"${(t.description || "").replace(/"/g, '""')}"`
-    ).join("\n");
-    const blob = new Blob([headers + rows], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `finance-export-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-    toast.success("CSV downloaded!");
+  const handleReset = async () => {
+    if (!confirm("Delete your financial profile and all goals? This cannot be undone.")) return;
+    await supabase.from("financial_goals").delete().eq("user_id", user!.id);
+    await supabase.from("personality_results").delete().eq("user_id", user!.id);
+    await supabase.from("chat_messages").delete().eq("user_id", user!.id);
+    await supabase.from("financial_profile").delete().eq("user_id", user!.id);
+    toast.success("Reset complete");
+    navigate("/onboarding");
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/");
-  };
+  if (loading) return <div className="min-h-screen grid place-items-center"><Loader2 className="w-6 h-6 animate-spin text-primary" /></div>;
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <div className="bg-card px-4 pt-6 pb-5 border-b border-border/40">
-        <h1 className="text-xl font-bold tracking-tight">Profile</h1>
-      </div>
-
-      <div className="px-4 py-5 space-y-5 max-w-lg mx-auto">
-        {/* User Info */}
-        <Card className="shadow-sm">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-                <User className="w-7 h-7 text-primary" />
-              </div>
-              <div>
-                <p className="text-lg font-bold">{displayName}</p>
-                <p className="text-xs text-muted-foreground">{user?.email}</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Summary Stats */}
-        <div className="grid grid-cols-3 gap-3">
-          <Card className="shadow-sm">
-            <CardContent className="p-3 text-center">
-              <TrendingUp className="w-4 h-4 text-primary mx-auto mb-1" />
-              <p className="text-xs text-muted-foreground">Total Income</p>
-              <p className="text-sm font-bold text-primary">${totalIncome.toLocaleString()}</p>
-            </CardContent>
-          </Card>
-          <Card className="shadow-sm">
-            <CardContent className="p-3 text-center">
-              <TrendingDown className="w-4 h-4 text-destructive mx-auto mb-1" />
-              <p className="text-xs text-muted-foreground">Total Spent</p>
-              <p className="text-sm font-bold text-destructive">${totalExpenses.toLocaleString()}</p>
-            </CardContent>
-          </Card>
-          <Card className="shadow-sm">
-            <CardContent className="p-3 text-center">
-              <Award className="w-4 h-4 text-accent mx-auto mb-1" />
-              <p className="text-xs text-muted-foreground">Badges</p>
-              <p className="text-sm font-bold">{badges.length}</p>
-            </CardContent>
-          </Card>
+    <div className="min-h-screen bg-background pb-24">
+      <header className="bg-card border-b border-border/60">
+        <div className="max-w-2xl mx-auto px-5 py-5">
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Settings</p>
+          <h1 className="text-2xl font-bold">Profile</h1>
         </div>
+      </header>
 
-        {/* Achievements */}
-        <Card className="shadow-sm">
-          <CardContent className="pt-4 pb-3">
-            <h2 className="text-sm font-semibold mb-3 flex items-center gap-2">
-              <Award className="w-4 h-4 text-chart-4" /> Achievements
-            </h2>
-            <div className="grid grid-cols-2 gap-2">
-              {Object.entries(BADGE_DEFINITIONS).map(([key, def]) => {
-                const earned = badges.some(b => b.badge_name === key);
-                return (
-                  <div key={key} className={`p-3 rounded-lg border text-center ${earned ? "border-accent/30 bg-accent/5" : "border-border/40 opacity-40"}`}>
-                    <p className="text-2xl mb-1">{def.icon}</p>
-                    <p className="text-xs font-semibold">{def.name}</p>
-                    <p className="text-[10px] text-muted-foreground mt-0.5">{def.description}</p>
-                  </div>
-                );
-              })}
+      <main className="max-w-2xl mx-auto px-5 py-6 space-y-4">
+        <Card className="border-border/60">
+          <CardContent className="p-5 flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary grid place-items-center"><User className="w-5 h-5" /></div>
+            <div>
+              <p className="font-semibold">{user?.email}</p>
+              <p className="text-xs text-muted-foreground">Member since {new Date(user?.created_at ?? Date.now()).toLocaleDateString("en-IN", { month: "long", year: "numeric" })}</p>
             </div>
           </CardContent>
         </Card>
 
-        {/* Dark Mode Toggle */}
-        <Card className="shadow-sm">
+        {profile && (
+          <Card className="border-border/60">
+            <CardContent className="p-5 space-y-3">
+              <h3 className="font-semibold text-sm">Your numbers</h3>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div><p className="text-xs text-muted-foreground">Age</p><p className="font-bold">{profile.age}</p></div>
+                <div><p className="text-xs text-muted-foreground">Retire by</p><p className="font-bold">{profile.retirement_age_target}</p></div>
+                <div><p className="text-xs text-muted-foreground">Income</p><p className="font-bold">{formatINR(profile.monthly_income, { compact: true })}</p></div>
+                <div><p className="text-xs text-muted-foreground">Expenses</p><p className="font-bold">{formatINR(profile.monthly_expenses, { compact: true })}</p></div>
+                <div><p className="text-xs text-muted-foreground">Savings</p><p className="font-bold">{formatINR(profile.current_savings, { compact: true })}</p></div>
+                <div><p className="text-xs text-muted-foreground">Investments</p><p className="font-bold">{formatINR(profile.current_investments, { compact: true })}</p></div>
+              </div>
+              <Button variant="outline" size="sm" className="w-full" onClick={() => navigate("/onboarding")}>
+                <Edit className="w-3.5 h-3.5 mr-2" /> Update profile
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
+        <Card className="border-border/60">
           <CardContent className="p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              {theme === "dark" ? <Moon className="w-4 h-4 text-chart-2" /> : <Sun className="w-4 h-4 text-accent" />}
-              <span className="text-sm font-medium">Dark Mode</span>
+              <Moon className="w-5 h-5 text-muted-foreground" />
+              <span className="text-sm font-medium">Dark mode</span>
             </div>
             <Switch checked={theme === "dark"} onCheckedChange={toggleTheme} />
           </CardContent>
         </Card>
 
-        {/* Export */}
-        <Button variant="outline" className="w-full" onClick={exportCSV}>
-          <Download className="w-4 h-4 mr-2" /> Export Transactions (CSV)
+        <Button variant="outline" className="w-full" onClick={async () => { await signOut(); navigate("/"); }}>
+          <LogOut className="w-4 h-4 mr-2" /> Sign out
         </Button>
-
-        {/* Sign Out */}
-        <Button variant="destructive" className="w-full" onClick={handleSignOut}>
-          <LogOut className="w-4 h-4 mr-2" /> Sign Out
+        <Button variant="ghost" size="sm" className="w-full text-destructive hover:text-destructive" onClick={handleReset}>
+          <Trash2 className="w-4 h-4 mr-2" /> Reset financial data
         </Button>
-      </div>
-
+      </main>
       <BottomNav />
     </div>
   );

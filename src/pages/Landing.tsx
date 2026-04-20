@@ -1,151 +1,111 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  ArrowRight,
-  BarChart3,
-  PiggyBank,
-  Target,
-  Wallet,
-  TrendingUp,
-  Shield,
-  Sparkles,
-  ChevronRight,
-  Zap,
-  Award,
-} from "lucide-react";
-
-const FEATURES = [
-  { icon: BarChart3, title: "Spending Analytics", desc: "Visual charts showing where your money goes each month.", color: "text-primary", bg: "bg-primary/10" },
-  { icon: Wallet, title: "Budget Tracker", desc: "Set budgets for categories and track progress with smart alerts.", color: "text-chart-2", bg: "bg-chart-2/10" },
-  { icon: PiggyBank, title: "Savings Goals", desc: "Create goals for gadgets, trips, or fees and watch your progress grow.", color: "text-accent", bg: "bg-accent/10" },
-  { icon: Target, title: "Expense Tracking", desc: "Log every expense with categories, dates, and notes.", color: "text-chart-4", bg: "bg-chart-4/10" },
-  { icon: TrendingUp, title: "Smart Tips", desc: "Get personalized advice to save more and spend wisely.", color: "text-destructive", bg: "bg-destructive/10" },
-  { icon: Award, title: "Achievements", desc: "Earn badges like Smart Saver and Budget Master as you build habits.", color: "text-primary", bg: "bg-primary/10" },
-];
-
-const HOW_IT_WORKS = [
-  { step: "01", title: "Sign up for free", desc: "Create your account in seconds — no credit card needed.", icon: Sparkles },
-  { step: "02", title: "Track your money", desc: "Log your income and expenses, set budgets, and create savings goals.", icon: BarChart3 },
-  { step: "03", title: "Get smarter with money", desc: "See analytics, earn badges, and build better financial habits.", icon: TrendingUp },
-];
+import { Wallet, ArrowRight, TrendingUp, Receipt, Shield, Brain, FlameKindling, Target, MessageCircle } from "lucide-react";
 
 export default function Landing() {
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
-      <section className="relative px-4 pt-12 pb-16 overflow-hidden">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-56 h-56 bg-accent/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
-
-        <div className="relative max-w-lg mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-semibold">
-            <Wallet className="w-4 h-4" />
-            Student Finance Tracker
+    <div className="min-h-screen bg-background">
+      {/* HERO */}
+      <header className="relative overflow-hidden">
+        <div className="absolute -top-32 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+        <nav className="relative max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-xl bg-primary text-primary-foreground grid place-items-center">
+              <Wallet className="w-5 h-5" />
+            </div>
+            <span className="font-bold text-lg">FinMentor AI</span>
           </div>
+          <Link to="/auth">
+            <Button variant="ghost" size="sm">Sign In</Button>
+          </Link>
+        </nav>
 
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.1]">
-            Master Your
-            <span className="block text-primary">Student Budget</span>
+        <div className="relative max-w-4xl mx-auto px-6 pt-12 pb-20 text-center">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-semibold mb-6 border border-primary/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            AI-powered for Indian investors
+          </div>
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05]">
+            Your pocket
+            <span className="block text-primary">financial mentor.</span>
           </h1>
-
-          <p className="text-muted-foreground text-lg leading-relaxed max-w-md mx-auto">
-            Track expenses, set budgets, save for goals, and build smart money habits — all in one simple app designed for students.
+          <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            FIRE planning, tax savings, SIP calculators, and a personal AI advisor — all built for the Indian middle class. No jargon, just clarity.
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-            <Button
-              size="lg"
-              className="h-13 px-8 text-base font-semibold shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all active:scale-[0.98]"
-              onClick={() => navigate("/auth")}
-            >
-              Get Started Free
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+          <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link to="/auth">
+              <Button size="lg" className="h-12 px-8 text-base font-semibold w-full sm:w-auto">
+                Get Started Free <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+            <a href="#features">
+              <Button variant="outline" size="lg" className="h-12 px-8 text-base font-semibold w-full sm:w-auto">
+                See features
+              </Button>
+            </a>
           </div>
+          <p className="mt-6 text-xs text-muted-foreground">No credit card • 2-min setup • ₹0 forever</p>
+        </div>
+      </header>
 
-          <div className="flex items-center justify-center gap-6 pt-4 text-xs text-muted-foreground">
-            <span className="flex items-center gap-1.5"><Zap className="w-3.5 h-3.5 text-accent" /> Quick setup</span>
-            <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5 text-primary" /> 100% free</span>
-            <span className="flex items-center gap-1.5"><Award className="w-3.5 h-3.5 text-chart-4" /> Gamified</span>
-          </div>
+      {/* FEATURE GRID */}
+      <section id="features" className="max-w-6xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Everything you need. Nothing you don't.</h2>
+          <p className="mt-3 text-muted-foreground">Built around the 95% of Indians who don't have a financial plan.</p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { icon: TrendingUp, title: "Money Health Score", desc: "0-100 score across 5 pillars: emergency, savings, debt, investments, retirement." },
+            { icon: FlameKindling, title: "FIRE Planner", desc: "Find your retirement age and the SIP needed to get there. With wealth growth charts." },
+            { icon: Receipt, title: "Tax Planner", desc: "Old vs New regime — see which saves you more. 80C, 80D, NPS suggestions." },
+            { icon: Target, title: "Goal Planner", desc: "Car, home, vacation — calculate the monthly SIP for any goal automatically." },
+            { icon: Shield, title: "Emergency Fund", desc: "Calculate your 6-month buffer and see exactly how far you are." },
+            { icon: Brain, title: "Money Personality", desc: "Saver, Spender, or Investor? 6 questions, personalized strategy." },
+          ].map((f) => (
+            <Card key={f.title} className="border-border/60 hover:shadow-lg hover:border-primary/30 transition-all">
+              <CardContent className="p-6 space-y-3">
+                <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary grid place-items-center">
+                  <f.icon className="w-5 h-5" />
+                </div>
+                <h3 className="font-semibold text-lg">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
 
-      <section id="how-it-works" className="px-4 py-14 bg-card/50 border-y border-border/40">
-        <div className="max-w-lg mx-auto space-y-8">
-          <div className="text-center space-y-2">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider">How It Works</p>
-            <h2 className="text-2xl font-bold tracking-tight">Start in 3 simple steps</h2>
-          </div>
-          <div className="space-y-4">
-            {HOW_IT_WORKS.map((item, i) => (
-              <Card key={i} className="border-border/60 shadow-sm hover:shadow-md transition-shadow">
-                <CardContent className="p-5 flex gap-4 items-start">
-                  <div className="flex flex-col items-center gap-1 shrink-0">
-                    <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <item.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <span className="text-[10px] font-bold text-primary/60">{item.step}</span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-base mb-1">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
+      {/* AI MENTOR HIGHLIGHT */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <Card className="border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 overflow-hidden">
+          <CardContent className="p-8 sm:p-12 grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
+                <MessageCircle className="w-3 h-3" /> AI MENTOR
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">Chat like WhatsApp. Advice like a CFP.</h3>
+              <p className="mt-4 text-muted-foreground leading-relaxed">
+                Ask anything: "Should I prepay my home loan or invest in ELSS?" Get answers personalized to your numbers — never generic.
+              </p>
+              <Link to="/auth"><Button className="mt-6 h-11 font-semibold">Try the mentor <ArrowRight className="w-4 h-4 ml-2" /></Button></Link>
+            </div>
+            <div className="bg-card border border-border rounded-2xl p-4 space-y-3 shadow-lg">
+              <div className="bg-primary text-primary-foreground rounded-2xl rounded-tl-sm p-3 text-sm max-w-[80%]">
+                Should I invest ₹10K extra in NPS or ELSS?
+              </div>
+              <div className="bg-secondary rounded-2xl rounded-tr-sm p-3 text-sm max-w-[90%] ml-auto">
+                Given your age (28) and 30% tax bracket, <strong>ELSS</strong> wins: same 80C benefit, better liquidity (3-yr lock vs 60), 12% returns vs 9%. Start a ₹10K SIP today. 🚀
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
-      <section className="px-4 py-14">
-        <div className="max-w-lg mx-auto space-y-8">
-          <div className="text-center space-y-2">
-            <p className="text-sm font-semibold text-accent uppercase tracking-wider">Features</p>
-            <h2 className="text-2xl font-bold tracking-tight">Everything you need to manage money</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {FEATURES.map((f, i) => (
-              <Card key={i} className="border-border/60 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
-                <CardContent className="p-4 space-y-3">
-                  <div className={`w-10 h-10 rounded-xl ${f.bg} flex items-center justify-center`}>
-                    <f.icon className={`w-5 h-5 ${f.color}`} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-sm mb-1">{f.title}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 py-14 bg-card/50 border-t border-border/40">
-        <div className="max-w-lg mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-3 py-1.5 rounded-full text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5" /> Built for Students
-          </div>
-          <h2 className="text-2xl font-bold tracking-tight">Ready to take control of your finances?</h2>
-          <p className="text-muted-foreground max-w-sm mx-auto">
-            Join students who are building smarter money habits with simple tracking and analytics.
-          </p>
-          <Button
-            size="lg"
-            className="h-13 px-10 text-base font-semibold shadow-lg shadow-primary/25 active:scale-[0.98] transition-all"
-            onClick={() => navigate("/auth")}
-          >
-            Start Tracking Free
-            <ChevronRight className="w-5 h-5 ml-1" />
-          </Button>
-        </div>
-      </section>
-
-      <footer className="px-4 py-6 text-center text-xs text-muted-foreground border-t border-border/40">
-        <p>© 2026 Student Finance Tracker · Your smart money companion</p>
+      <footer className="border-t border-border/60 py-8 text-center text-sm text-muted-foreground">
+        Built with care for Indian families. © {new Date().getFullYear()} FinMentor AI.
       </footer>
     </div>
   );
